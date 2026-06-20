@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0b0b0b;
+  --card: #121212;
+  --text: #ffffff;
+  --muted: #a1a1aa;
+  --gold: #d4a24c;
+  --gold-light: #e8c06a;
+  --border: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(212, 162, 76, 0.35);
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+/* Overlays */
+.overlay-cinematic {
+  background: linear-gradient(
+    180deg,
+    rgba(11, 11, 11, 0.3) 0%,
+    rgba(11, 11, 11, 0.6) 40%,
+    rgba(11, 11, 11, 0.95) 100%
+  );
+}
+
+.overlay-side {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 11, 11, 0.95) 0%,
+    rgba(11, 11, 11, 0.6) 45%,
+    rgba(11, 11, 11, 0.2) 100%
+  );
+}
+
+/* Scrollbar hide for horizontal rows */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease forwards;
+}
+
+/* Gold accent line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Card hover glow */
+.hover-glow {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 8px 40px rgba(212, 162, 76, 0.08);
+  border-color: rgba(212, 162, 76, 0.25);
+}
+
+/* Journey path connector */
+.journey-path-line {
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(212, 162, 76, 0.2) 100%);
+}
+
+/* Pattern card shimmer on hover */
+.pattern-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(212, 162, 76, 0.04) 50%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.pattern-card:hover::before {
+  opacity: 1;
 }
